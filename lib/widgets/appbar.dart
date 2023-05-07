@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
 
-class AppBar extends StatefulWidget {
-  const AppBar({super.key});
+class CalmalarmAppBar extends StatelessWidget with PreferredSizeWidget {
+  const CalmalarmAppBar({super.key});
 
-  @override
-  State<AppBar> createState() => _AppBarState();
-}
-
-class _AppBarState extends State<AppBar> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Text('test'),
-    );
+    return AppBar(title: const Text('Calm Alarm'));
   }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
