@@ -1,5 +1,5 @@
+import 'package:calmalarm/widgets/alarm_datetime.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class AlarmListElement extends StatelessWidget {
   const AlarmListElement({super.key, required this.title, required this.dateTime});
@@ -23,29 +23,7 @@ class AlarmListElement extends StatelessWidget {
             IconButton(onPressed: () => {}, icon: const Icon(Icons.edit))
           ],
         ),
-        Transform.scale(
-          scale: 0.75,
-          alignment: Alignment.centerLeft,
-          child: Row(
-            children: [
-              Row(
-                children: [
-                  const Icon(Icons.date_range),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                    child: Text(DateFormat.yMMMd().format(dateTime)),
-                  ),
-                  const SizedBox(width: 20),
-                  const Icon(Icons.timer),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                    child: Text(DateFormat.Hm().format(dateTime)),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        )
+        AlarmDateTime(dateTime: dateTime)
       ],
     );
   }
