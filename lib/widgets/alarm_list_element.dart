@@ -12,7 +12,16 @@ class AlarmListElement extends StatelessWidget {
     return Column(
       children: <Widget>[
         Row(
-          children: [const Icon(Icons.alarm), Expanded(child: Padding(padding: const EdgeInsets.symmetric(horizontal: 16.0), child: Text(title, style: const TextStyle(fontWeight: FontWeight.w500)))), IconButton(onPressed: () => {}, icon: const Icon(Icons.edit))],
+          children: [
+            const Icon(Icons.alarm), 
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0), 
+                child: Text(title, style: const TextStyle(fontWeight: FontWeight.w500))
+              )
+            ), 
+            IconButton(onPressed: () => {}, icon: const Icon(Icons.edit))
+          ],
         ),
         Transform.scale(
           scale: 0.75,

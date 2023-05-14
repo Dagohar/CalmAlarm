@@ -19,20 +19,34 @@ class _AlarmsPageState extends State<AlarmsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      padding: const EdgeInsets.all(16.0),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        mainAxisExtent: 100,
-        crossAxisCount: 1,
-      ),
-      itemCount: alarms.length,
-      itemBuilder: (context, index) {
-        return Column(
-          children: [
-            alarms[index],
-            const Divider(thickness: 1.0)
-          ],
-        );
-      });
+    return Stack(
+      children: [
+        GridView.builder(
+          padding: const EdgeInsets.all(16.0),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            mainAxisExtent: 100,
+            crossAxisCount: 1,
+          ),
+          itemCount: alarms.length,
+          itemBuilder: (context, index) {
+            return Column(
+              children: [
+                alarms[index],
+                const Divider(thickness: 1.0)
+              ],
+            );
+          }
+        ),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextButton(onPressed: () {}, child: const Text('Add new alarm'))
+            ],
+          ),
+        )
+      ],
+    );
   }
 }
