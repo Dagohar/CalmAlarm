@@ -1,5 +1,5 @@
+import 'package:calmalarm/helpers/formatters.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class AlarmDateTime extends StatelessWidget {
   const AlarmDateTime({
@@ -27,13 +27,13 @@ class AlarmDateTime extends StatelessWidget {
               const Icon(Icons.date_range),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: Text(DateFormat.yMMMd().format(dateTime)),
+                child: Text(Formatters.dateTimeToString(dateTime)),
               ),
               const SizedBox(width: 20),
               const Icon(Icons.timer),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: Text(DateFormat.Hm().format(dateTime)),
+                child: Text(Formatters.dateTimeToTimeOfDayString(dateTime)),
               ),
             ],
           ),

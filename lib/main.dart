@@ -30,15 +30,15 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) => ChangeNotifierProvider(
-        create: (context) => themeChangeProvider,
-        child: Consumer<ThemeProvider>(
-          builder: (context, provider, child) {
-            return MaterialApp(
-              title: 'CalmAlarm', 
-              theme: Styles.appThemeData(provider.darkMode, context), 
-              home: const NavigationPage()
-            );
-          },
-        ),
-      );
+    create: (context) => themeChangeProvider,
+    child: Consumer<ThemeProvider>(
+      builder: (context, provider, child) {
+        return MaterialApp(
+          title: 'CalmAlarm', 
+          theme: Styles.appThemeData(provider.darkMode, context), 
+          home: const NavigationPage()
+        );
+      },
+    ),
+  );
 }
