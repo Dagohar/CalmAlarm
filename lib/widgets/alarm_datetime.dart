@@ -1,4 +1,4 @@
-import 'package:calmalarm/helpers/formatters.dart';
+import 'package:calmalarm/extensions/dateTime_extension.dart';
 import 'package:flutter/material.dart';
 
 class AlarmDateTime extends StatelessWidget {
@@ -9,6 +9,7 @@ class AlarmDateTime extends StatelessWidget {
     this.alignment = Alignment.centerLeft,
     this.rowAlignment = MainAxisAlignment.start
   });
+  
   final double scaleFactor;
   final DateTime dateTime;
   final Alignment alignment;
@@ -27,13 +28,13 @@ class AlarmDateTime extends StatelessWidget {
               const Icon(Icons.date_range),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: Text(Formatters.dateTimeToString(dateTime)),
+                child: Text(dateTime.toLocalString()),
               ),
               const SizedBox(width: 20),
               const Icon(Icons.timer),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: Text(Formatters.dateTimeToTimeOfDayString(dateTime)),
+                child: Text(dateTime.toTimeOfDayString()),
               ),
             ],
           ),

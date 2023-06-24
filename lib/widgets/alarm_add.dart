@@ -1,16 +1,18 @@
-import 'package:calmalarm/helpers/formatters.dart';
-import 'package:calmalarm/widgets/alarm_list_element.dart';
+import 'package:calmalarm/extensions/dateTime_extension.dart';
+import 'package:calmalarm/extensions/timeOfDay_extension.dart';
+import 'package:calmalarm/models/alarm_data.dart';
 import 'package:flutter/material.dart';
 
-class AlarmCreatorModal extends StatefulWidget {
-  const AlarmCreatorModal({super.key, required this.callback});
-  final Function(AlarmListElement newAlarm) callback;
+class AlarmAdd extends StatefulWidget {
+  const AlarmAdd({super.key, required this.onAddNewAlarm});
+  
+  final Function(AlarmData newAlarm) onAddNewAlarm;
 
   @override
-  State<AlarmCreatorModal> createState() => _AlarmCreatorModalState();
+  State<AlarmAdd> createState() => _AlarmAddState();
 }
 
-class _AlarmCreatorModalState extends State<AlarmCreatorModal> {
+class _AlarmAddState extends State<AlarmAdd> {
   late TextEditingController _titleController, _dateController, _timeController;
   late DateTime _date;
   late TimeOfDay _time;
@@ -54,7 +56,7 @@ class _AlarmCreatorModalState extends State<AlarmCreatorModal> {
                         lastDate: DateTime.now().add(const Duration(days: 365))
                       );
                       _date = pickedDate!;
-                      _dateController.text = Formatters.dateTimeToString(_date);
+                      _dateController.text = _date.toLocalString();
                     },
                     decoration: const InputDecoration(border: OutlineInputBorder(), labelText: 'Set Date')),
                 const SizedBox(height: 10),
@@ -64,14 +66,19 @@ class _AlarmCreatorModalState extends State<AlarmCreatorModal> {
                     onTap: () async {
                       var pickedTime = await showTimePicker(context: context, initialTime: TimeOfDay.now());
                       _time = pickedTime!;
-                      _timeController.text = Formatters.timeOfDayToString(_time);
+                      _timeController.text = _time.toLocalString();
                     },
                     decoration: const InputDecoration(border: OutlineInputBorder(), labelText: 'Set Time')),
                 const SizedBox(height: 10),
                 TextButton(
                     onPressed: () {
-                      var newAlarm = AlarmListElement(title: _titleController.text, dateTime: _date, timeOfDay: _time);
-                      widget.callback(newAlarm);
+                      var newAlarm = AlarmData(
+                        title: _titleController.text, 
+                        dateTime: _date, 
+                        timeOfDay: _time,
+                        isOn: true
+                      );
+                      widget.onAddNewAlarm(newAlarm);
                       Navigator.pop(context);
                     },
                     child: const Text('Set Alarm'))

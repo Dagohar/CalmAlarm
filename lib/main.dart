@@ -23,7 +23,6 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     getCurrentAppTheme();
   }
-
   void getCurrentAppTheme() async {
     themeChangeProvider.darkMode = await themeChangeProvider.themePreference.getDarkMode();
   }

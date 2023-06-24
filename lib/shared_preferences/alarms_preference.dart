@@ -1,29 +1,34 @@
-import 'package:calmalarm/helpers/converters.dart';
-import 'package:calmalarm/widgets/alarm_list_element.dart';
+import 'package:calmalarm/models/alarm_data.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AlarmsPreference {
   static const SAVEDALARMS_LIST = "SavedAlarms_List";
 
-  setSavedAlarms(List<AlarmListElement> value) async {
+  setSavedAlarms(List<AlarmData> value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     final alarmsData = <String>[];
     for (var alarm in value) {
-      alarmsData.add(Converters.convertAlarmListElementToString(alarm));
+      alarmsData.add(alarm.toDataString());
     }
 
     prefs.setStringList(SAVEDALARMS_LIST, alarmsData);
   }
 
-  Future<List<AlarmListElement>> getSavedAlarms() async {
+  Future<List<AlarmData>> getSavedAlarms() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var savedAlarmsData = prefs.getStringList(SAVEDALARMS_LIST)!;
 
-    final alarms = <AlarmListElement>[];
+    final alarms = <AlarmData>[];
     for (var rowData in savedAlarmsData) {
-      alarms.add(Converters.convertStringToAlarmListElement(rowData));
-      print(rowData);
+      try {
+        alarms.add(AlarmDataFactory.createAlarmDataFromString(rowData));
+      }
+      on FormatException catch(_) {
+        savedAlarmsData.remove(rowData);
+        prefs.setStringList(SAVEDALARMS_LIST, savedAlarmsData);
+        return await getSavedAlarms();
+      }
     }
 
     return alarms;
